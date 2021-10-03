@@ -1,0 +1,1005 @@
+<!DOCTYPE html> 
+<html lang="en">
+	<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122336501-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-122336501-1');
+</script>
+
+		<title>Bitcoin wallet|100% open sourced bitcoin escrow transaction wallet for the transaction security between sellers and buyers</title>
+
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<meta name="keywords" content="bitcoin, wallet, multisig, multisignature, address, browser, javascript, js, broadcast, transaction, verify, decode" />
+		<meta name="description" content="A Bitcoin Escrow Transaction Service written in Javascript. Supports Multisig, Custom Transactions and more!" />
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--网页标题左侧显示-->
+        <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+        <!--收藏夹显示图标-->
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" href="css/style.css" media="screen">
+		
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/moment.min.js"></script>
+		<script type="text/javascript" src="js/transition.js"></script>
+		<script type="text/javascript" src="js/collapse.js"></script>
+
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+
+		<script type="text/javascript" src="js/crypto-min.js"></script>
+		<script type="text/javascript" src="js/crypto-sha256.js"></script>
+		<script type="text/javascript" src="js/crypto-sha256-hmac.js"></script>
+		<script type="text/javascript" src="js/sha512.js"></script>
+		<script type="text/javascript" src="js/ripemd160.js"></script>
+		<script type="text/javascript" src="js/aes.js"></script>
+
+		<script type="text/javascript" src="js/qrcode.js"></script>
+		<script type="text/javascript" src="js/qcode-decoder.min.js"></script>
+		<script type="text/javascript" src="js/jsbn.js"></script>
+		<script type="text/javascript" src="js/ellipticcurve.js"></script>
+
+		<script type="text/javascript" src="js/coin.js"></script>
+		<script type="text/javascript" src="js/coinbin.js"></script>
+		
+
+	</head>
+
+	<body>
+		<div id="wrap">
+			<!-- Fixed navbar -->
+			<div id="header" class="navbar navbar-default " role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a href="#home" class="navbar-brand" id="homeBtn"><img src="images/bitcoin.gif" style="height:25px;margin-top:-5px"></a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> New<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="#newAddress" data-toggle="tab"> <span class="fab fa-bitcoin"></span> Bitcoin Address</a></li>
+									<li><a href="#newMultiSig" data-toggle="tab"><span class="far fa-edit"></span> Escrow Transaction Address</a></li>
+									
+									<li class="hidden"><a href="#newTransaction" data-toggle="tab">Transaction</a></li>
+								</ul>
+							</li>
+							<li><a href="#verify" data-toggle="tab"><span class="glyphicon glyphicon-ok"></span> Verify</a></li>
+							<li><a href="#sign" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> Sign</a></li>
+							<li><a href="#broadcast" data-toggle="tab"><span class="fas fa-volume-up"></span> Broadcast</a></li>
+							<li><a href="#newTransaction" data-toggle="tab"><span class="far fa-credit-card"></span> Transaction</a></li>
+							<li><a href="#about" data-toggle="tab"><span class="far fa-file-alt"></span> Tutorial</a></li>
+
+							<li class="hidden"><a href="#settings" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div id="content" class="container">
+
+				<noscript class="alert alert-danger center-block"><span class="glyphicon glyphicon-exclamation-sign"></span> This page uses javascript, please enable it to continue!</noscript>
+
+				<div class="tab-content">
+					<div class="tab-pane tab-content active" id="home">
+						<div class="row">
+							<div class="col-md-12 ">
+								<h2 class="hidden">Welcome to Bitcoin Escrow</h2>
+							</div>
+						</div>
+
+						<div class="jumbotron">
+							<h2>Bitcoin. a global electronic currency.</h2>
+							<p>Features：open source + decentralized + transparent ledger + low transaction fees + anonymous accounts + free to use</p>
+
+							<p><a class="btn btn-primary btn-lg" href="#about" role="button">Tutorial &raquo;</a></p> 
+						</div>
+						<div class="hidden"><h2> WHY US?</h2> </div>
+
+						<hr>
+
+						<div class="row">
+							<div class="col-md-4">
+								<h3><span class="fab fa-github"></span> Open Source</h3>
+								<p>Customized from Coinbin which is an open source web based wallet written in javascript and released under the <a href="LICENSE">MIT license</a> which means you can check its security on your own local computer.</p>
+							</div>
+
+							<div class="col-md-4">
+								<h3><span class="glyphicon glyphicon-fullscreen"></span> Decentralized</h3>
+								<p>Unlike centralized banks in any countries, bitcoin not belong to any governments. The ledger is public, anybody can store it on their computer </p>
+							</div>
+
+							<div class="col-md-4">
+								<h3><span class="glyphicon glyphicon-globe"></span> Free to use</h3>
+								<p>Bitcoin can run in your own computer and no technology can stop it currently, no none can block your bitcoin account, and no one can know the owner name of that bitcoin account.</p>
+							</div>
+						</div>
+
+						<div class="row">
+							
+							<div class="col-md-4">
+								<h3><span class="fas fa-hand-holding-usd"></span> Low Service Fees</h3>
+								<p>For 2/3 escrow service, we only charge 2‰  for per transaction between buyers and sellers. That means if you have a transaction at 10000$, we only charge 20$.</p>
+							</div>
+							<div class="col-md-4">
+								<h3><span class="far fa-money-bill-alt"></span> Fixed Circulation</h3>
+								<p>Only 2100w bitcoin in the world.So that you won’t worry your bitcoin would be a toilet paper like your country paper currency.</p>
+							</div>
+							<div class="col-md-4">
+								<h3><span class="fas fa-check"></span> Privacy and Security</h3>
+								<p>This site doesn't has mysql or postgresql database like paypal, so that we cannot store users data,and bitcoinescrow.ga is a complete client side application with traffic routed through SSL.</p>
+							</div>
+						</div>
+					</div>
+
+					
+
+					<div class="tab-pane tab-content" id="newAddress">
+						<h2>New Bitcoin Address <small>create a new Bitcoin address</small></h2>
+						<p>Bitcoin address similar to your bank card account, Public key similar to your passport id, Private key similar to your bank card password. You need to manually store them safely as they will be needed later to redeem the bitcoins. Do not share your Private key to anybody, if you lose your Private key, you will lose your bitcoin.</p>
+						<label>Address (Share)</label>
+
+						<div class="input-group">
+							<input id="newBitcoinAddress" type="text" class="form-control address" value="" readonly>
+							<span class="input-group-btn">
+								<button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode"><span class="glyphicon glyphicon-qrcode"></span></button>
+							</span>
+						</div>
+
+						<label>Public key (Share)</label>
+						<input id="newPubKey" type="text" class="form-control" readonly>
+						<label>Private key (WIF key)</label>
+						<div class="input-group">
+							<input id="newPrivKey" type="password" class="form-control" value="" readonly>
+							<span class="input-group-btn">
+								<button class="showKey btn btn-default" type="button">Show</button>
+							</span>
+						</div>
+
+						<div id="aes256wifkey" class="hidden">
+							<label>AES-256 Encrypted WIF key</label>
+							<input id="newPrivKeyEnc" type="text" class="form-control" value="" readonly>
+						</div>
+
+						<h3>Address Options</h3>
+						<p>You can use the advanced options below to generate different kind of keys and addresses.</p>
+						<div class="checkbox">
+							<label><input type="checkbox" id="newCompressed" class="checkbox-inline" checked> Compress <span class="text-muted">(recommended)</span></label>
+						</div>
+						<div class="checkbox">
+							<label><input type="checkbox" id="newBrainwallet" class="checkbox-inline"> Custom Seed or Brain Wallet</label>
+							<input type="text" class="form-control hidden" id="brainwallet">
+						</div>
+
+						<div class="checkbox">
+							<label><input type="checkbox" id="encryptKey" class="checkbox-inline"> Encrypt Private Key with AES-256 Password</label>
+							<div id="aes256passform" class="row hidden">
+								<div class="col-md-6">
+									<input type="password" class="form-control" id="aes256pass" placeholder="Password"></label>
+								</div>
+								<div class="col-md-6">
+									<input type="password" class="form-control" id="aes256pass_confirm" placeholder="Confirm Password">
+								</div>
+							</div>
+
+							<div id="aes256passStatus" class="row hidden">
+								<div class="col-md-12">
+									<br>
+									<div class="alert alert-danger"> <span class="glyphicon glyphicon-exclamation-sign"></span> Your passwords do not match, please try again!</div>
+								</div>
+							</div>
+
+						</div>
+
+						<input type="button" class="btn btn-primary" value="Generate" id="newKeysBtn">
+						<br>
+					</div>
+
+					<div class="tab-pane tab-content" id="newMultiSig">
+						<h2>New Escrow Transaction Address <small>Bitcoin's multisignature function</small></h2>
+
+						<div class="row">
+
+							<div class="col-md-8">
+								<p>Bitcoin public key can be <a href="#newAddress">generated in your browser</a> or from your own bitcoin wallet client</a>.</p>
+								<p>The buyer and the seller have to lock the same bitcoins to ensure the transaction security between the seller and buyer. Until two sides both agree to mark their transaction as completed, their locked bitcoin will be locked in the multi signature address forever. One mediator can be selected from the <a href="javascript:;" data-toggle="modal" data-target="#modalMediator">list of mediators</a>. Compressed and uncompressed public keys are both accepted.</p>
+							</div>
+
+							<div class="col-md-3">
+								<p class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span> <a href="javascript:;" data-toggle="modal" data-target="#modalMediator"><abbr>List of Mediators?</abbr></a></p>
+							</div>
+
+							<div class="col-md-1">
+							</div>
+						</div>
+
+						<div id="multisigPubKeys" class="row">
+							<div class="form-horizontal">
+								<div class="col-xs-11">
+									<input type="text" class="form-control pubkey">
+								</div>
+								<a href="javascript:;" class="pubkeyAdd"><span class="glyphicon glyphicon-plus"></span></a>
+								<br><br>
+							</div>
+						</div>
+
+						<p>Enter the amount of signatures required to release the coins</p>
+						<div class="row">
+							<div class="col-xs-3">
+								<select id="releaseCoins" class="form-control">
+									
+									<option selected>2</option>
+									
+								</select>
+							</div>
+						</div>
+
+						<br>
+
+						<div id="multiSigErrorMsg" class="alert alert-danger" style="display:none;"></div>
+
+						<div class="alert alert-success hidden" id="multiSigData">
+							<label>Address</label>
+							<p>Payment should be made to this address:</p>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="input-group">
+										<input type="text" class="form-control address" value="" readonly>
+										<span class="input-group-btn">
+											<button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode"><span class="glyphicon glyphicon-qrcode"></span></button>
+										</span>
+									</div>
+								</div>
+							</div>
+							<label>Redeem Script</label>
+							<p>This script should be <i>saved and should be shared with all the participants before a payment is made</i>, so they may validate the authenticity of the address, it will also be used later to release the bitcoins.</p>
+							<textarea class="form-control script" style="height:160px" readonly></textarea>
+							<label>Shareable URL</label>
+							<input type="text" class="scriptUrl form-control" readonly>
+						</div>
+
+						<input type="button" class="btn btn-primary" value="Submit" id="newMultiSigAddress">
+						<br>
+					</div>
+
+                    
+					<div class="tab-pane tab-content" id="newTransaction">
+						<h2>Transaction <small>Create a new transaction</small></h2>
+						<p>You can use this page to send bitcoins to someone</p>
+
+						<b>Enter Escrow Redeem Script Or Secret Key</b>:
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button class="btn btn-info qrcodeScanner" type="button" data-toggle="modal" data-target="#modalQrcodeScanner" forward-result="#redeemFrom"><span class="glyphicon glyphicon-camera"></span></button>
+							</span>
+							<input type="text" id="redeemFrom" class="form-control" value="">
+							<span class="input-group-btn">
+								<button id="redeemFromBtn" class="btn btn-info" type="button">Show</button>
+							</span>
+						</div>
+
+						<br>
+
+						<div class="hidden alert alert-danger" id="redeemFromStatus"></div>
+
+						<div class="hidden alert alert-info" id="redeemFromAddress"></div>
+
+
+						<ul class="nav nav-tabs" id="putTabs">
+							<li class="active"><a href="#txoutputs" data-toggle="tab">Outputs <small>(<span id="totalOutput">0.00000000</span>)</small></a></li>
+							<li><a href="#txinputs" data-toggle="tab">Balance <small>(<span id="totalInput">0.00000000</span>)</small></a></li>
+						</ul>
+
+						<br>
+
+						<div class="tab-content">
+
+							<div class="tab-pane fade in active" id="txoutputs">
+
+								<span class="pull-right"><a href="javascript:;" id="donateTxBtn" class="btn btn-link"><span class="glyphicon glyphicon-heart"></span> Donate!</a></span> 
+
+								<p>Enter the recipient's bitcoin address, and the amount you want to send.For your transaction security and privacy, you should input 2 recipient's bitcoin address, one the the recipient address, the other one address is your backup bitcoin address. </p>
+								<div class="row">
+									<div class="col-xs-8">
+										<label><abbr title="You can type the recipient's bitcoin address here">Recipient's bitcoin address</abbr></label>
+									</div>
+									<div class="col-xs-3">
+										<label><abbr title="you can type the bitcoin amount you want to send">Amount</abbr></label>
+									</div>
+									<div class="col-xs-1">
+									</div>
+								</div>
+
+								<div id="recipients">
+									<div class="row recipient">
+										<div class="col-xs-8">
+											<input type="text" class="form-control address" placeholder="1">
+										</div>
+										<div class="col-xs-3">
+											<input type="text" class="form-control amount" placeholder="0.00">
+										</div>
+										<div class="col-xs-1">
+											<a href="javascript:;" class="addressAddTo"><span class="glyphicon glyphicon-plus"></span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="tab-pane fade" id="txinputs">
+								<p>Transaction History.</p>
+								<div class="row">
+									<div class="col-xs-5">
+										<label><abbr title="Transaction ID">Transaction ID:</abbr></label>
+									</div>
+									<div class="col-xs-1">
+										<label><abbr title="Transaction Input Number">N</abbr></label>
+									</div>
+									<div class="col-xs-3">
+										<label>Script</label>
+									</div>
+									<div class="col-xs-2">
+										<label><abbr title="This field is for accounting purposes only - the entire input will be spent!">Amount</abbr></label>
+									</div>
+									<div class="col-xs-1">
+									</div>
+								</div>
+
+								<div id="inputs">
+									<div class="row inputs">
+										<div class="col-xs-5">
+											<input type="text" class="form-control txId" placeholder="">
+										</div>
+										<div class="col-xs-1">
+											<input type="text" class="form-control txIdN" placeholder="0">
+										</div>
+										<div class="col-xs-3">
+											<input type="text" class="form-control txIdScript">
+										</div>
+										<div class="col-xs-2">
+											<input type="text" class="form-control txIdAmount" placeholder="0.00">
+										</div>
+										<div class="col-xs-1">
+											<a href="javascript:;" class="txidAdd"><span class="glyphicon glyphicon-plus"></span></a>
+											<a href="javascript:;" class="txidClear"><span class="glyphicon glyphicon-minus"></span></a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<br>
+
+						<div class="row">
+							<div class="col-xs-3">
+								<label><abbr title="No matter you transfer 1 bitcoin or 100 bitcoin, the transaction fee is around $4 USD">Transaction Fee</abbr>&nbsp;&nbsp;</label>
+								<input type="text" id="transactionFee" class="form-control" value="0.0000" readonly>
+							</div>
+						</div>
+                        <!--
+						<div><label>For recommended realtime fee use <a href="https://bitcoinfees.earn.com/api/v1/fees/recommended" target="_blank">bitcoinfees.earn.com</a> calculated with "sats per byte" or <a href="https://estimatefee.com/n/6" target="_blank">estimatefee.com</a> calculated with "sats per 1000 bytes". </label></div>  -->
+
+						<br>
+
+						<div id="transactionCreateStatus" class="alert alert-danger hidden"></div>
+
+						<div id="transactionCreate" class="alert alert-success hidden">
+							<label>Transaction</label>
+							<button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode" style="float:right;"><span class="glyphicon glyphicon-qrcode"></span></button>
+
+							<p>The transaction below has been generated and encoded. It can be broadcasted once it has been signed.</p>
+							<br>
+			                                <textarea class="form-control" style="height:150px" readonly></textarea>
+
+							<p class="text-muted">Size: <span class="txSize">0</span> <i>bytes</i></p>
+						</div>
+
+						<input type="button" value="Submit" class="btn btn-primary" id="transactionBtn">
+
+						<br>
+					</div>
+
+					<div class="tab-pane tab-content" id="verify">
+						<h2>Verify <small>transactions and other scripts</small></h2>
+						<div class="row">
+							<div class="col-md-12">
+								<p>Enter the raw transaction, redeem script, pubkey, hd address or wif key to convert it into a readable format that can be verified manually.</p>
+								<textarea type="text" id="verifyScript" class="form-control" style="height:125px"></textarea>
+							</div>
+						</div>
+						<br>
+
+						<div class="hidden verifyData" id="verifyRsData">
+							<h4>Redeem Script</h4>
+							<p><span style="float:right"><a href="javascript:;" target="_blank" class="verifyLink" title="Link to this page"><span class="glyphicon glyphicon-link"></span></a></span>The above redeem script has been decoded</p>
+
+							<div class="hidden" id="verifyRsDataMultisig">
+                                <label>Escrow Address</label>
+    							<div class="row">
+    								<div class="col-lg-6">
+    									<div class="input-group">
+    										<input type="text" class="form-control address multisigAddress" value="" readonly>
+    										<span class="input-group-btn">
+    											<button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode"><span class="glyphicon glyphicon-qrcode"></span></button>
+    										</span>
+    									</div>
+    								</div>
+    							</div>
+    							<label>Required Signatures</label>
+    							<p class="signaturesRequired">?</p>
+    							<label>Signatures Required from</label>
+    							<table class="table table-striped table-hover">
+    								<tbody>
+    								</tbody>
+    							</table>
+                            </div>
+
+                            <div class="hidden" id="verifyRsDataHodl">
+                                <label>Hodl Address</label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control address" value="" readonly>
+                                            <span class="input-group-btn">
+                                                <button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode"><span class="glyphicon glyphicon-qrcode"></span></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Required Signature</label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control address pubkey" value="" readonly>
+                                            <span class="input-group-btn">
+                                                <button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode"><span class="glyphicon glyphicon-qrcode"></span></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Unlock Time</label>
+                                <div class="row">
+                                    <div class='col-md-4'>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control date" value="" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                            </div>
+						</div>
+
+						<div class="hidden verifyData" id="verifyTransactionData">
+							<h4>Transaction Script</h4>
+							<p><span style="float:right"><a href="" target="_blank" class="verifyLink" title="Link to this page"><span class="glyphicon glyphicon-link"></span></a></span>The above script has been decoded</p>
+							<div><b>Version</b>: <span class="transactionVersion"></span></div>
+							<div><b>Transaction Size</b>: <span class="transactionSize"></span></div>
+							<div><b>Lock time</b>: <span class="transactionLockTime"></span></div>
+							<div class="transactionRBF"><b>RBF</b>: This is a <a href="https://en.bitcoin.it/wiki/Transaction_replacement">replace by fee</a> transaction!</div>
+
+							<hr>
+
+							<label>Inputs</label>
+							<table class="table table-striped table-hover ins">
+								<thead>
+									<tr style="font-weight:bold;">
+										<td><abbr title="the transaction id">Txid</abbr></td><td><abbr title="index id of the the transaction">N</abbr></td><td><abbr title="transaction script">Script</abbr></td><td><abbr title="is input signed?">Signed?</abbr></td><td><abbr title="is transaction an escrow transaction?">Escrow?</abbr></td>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+
+							<label>Outputs</label>
+							<table class="table table-striped table-hover outs">
+								<thead>
+									<tr style="font-weight:bold;">
+										<td><abbr title="address the funds are being sent to">Address</abbr></td><td><abbr title="the amount the address is being sent">Amount</abbr></td><td><abbr title="the script of the transaction">Script</abbr></td>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="hidden verifyData" id="verifyPrivKey">
+							<h4>WIF key</h4>
+							<p>The above wif key has been decoded</p>
+							<p><b>Address</b>: <input type="text" class="form-control address" readonly></p>
+							<p><b>Public key</b>: <input type="text" class="form-control pubkey" readonly></p>
+							<p><b>Private key</b>: <input type="text" class="form-control privkey" readonly></p>
+							<p><b>Is compressed</b>: <span class="iscompressed"></span></p>
+
+						</div>
+
+						<div class="hidden verifyData" id="verifyPubKey">
+							<h4>Public key</h4>
+							<p><span style="float:right"><a href="" target="_blank" class="verifyLink" title="Link to this page"><span class="glyphicon glyphicon-link"></span></a></span>The above public key has been encoded to its address</p>
+							<p><b>Address</b>: <input type="text" class="form-control address" readonly></p>
+						</div>
+
+						<div class="hidden verifyData" id="verifyHDaddress">
+							<h4>HD Address</h4>
+							<p><span style="float:right"><a href="" target="_blank" class="verifyLink" title="Link to this page"><span class="glyphicon glyphicon-link"></span></a></span>The key <small><span class="hdKey hidden"></span></small> has been decoded</p>
+							<div class="row">
+								<div class="col-md-2">
+									<b>Type</b><br>
+									<span class="key_type"></span>
+								</div>
+
+								<div class="col-md-5">
+									<b>Chain Code</b><br>
+									<input type="text" class="form-control chain_code" value="" readonly>
+								</div>
+
+
+								<div class="col-md-5">
+									<b>Key</b><br>
+									<input type="text" class="form-control hdwifkey" value="" readonly>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3">
+									<b>Version</b><br>
+									<input type="text" class="form-control version" value="" readonly>
+								</div>
+
+								<div class="col-md-3">
+									<b>Parent FingerPrint</b><br>
+									<input type="text" class="form-control parent_fingerprint" value="" readonly>
+								</div>
+
+								<div class="col-md-3">
+									<b>Depth</b><br>
+									<input type="text" class="form-control depth" value="" readonly>
+								</div>
+
+								<div class="col-md-3">
+									<b>Index</b><br>
+									<input type="text" class="form-control child_index" value="" readonly>
+								</div>
+							</div>
+
+							<div class="row">
+							</div>
+
+							<hr>
+
+							<h4>Key Derivation</h4>
+							<p>The path of key derivation</p>
+
+							<div class="row">
+								<div class="col-md-8">
+									<b>Path</b><br>
+									<select class="form-control">
+										<option>Simple: m/i</option>
+									</select>
+								</div>
+
+								<div class="col-md-2">
+									<b>Index (Start)</b><br>
+									<input type="text" class="form-control derivation_index_start" value="0">
+								</div>
+
+								<div class="col-md-2">
+									<b>Index (End)</b><br>
+									<input type="text" class="form-control derivation_index_end" value="1">
+								</div>
+
+							</div>
+
+							<hr>
+							<h4>Keys</h4>
+
+							<p>Keys derived from the hd address provided</p>
+
+							<div class="derived_data">
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr><td><b>Index</b></td><td><b>Address</b><td><b>Private Key (WIF)</b></td></td><td><b>Extended xPub</b></td><td><b>Extended xPrv</b></td></tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+
+							<br>
+						</div>
+
+						<div id="verifyStatus" class="alert alert-danger hidden"><span class="glyphicon glyphicon-exclamation-sign"></span> Unable to decode</div>
+
+						<input type="button" value="Submit" class="btn btn-primary" id="verifyBtn">
+						<br>
+					</div>
+
+					<div class="tab-pane tab-content" id="sign">
+						<h2>Sign Transaction <small>once a transaction has been verified</small></h2>
+						<p>Once you have <a href="#verify">verified</a> a transaction you can sign and then <a href="#broadcast">broadcast</a> it into the network.</p>
+
+						<div class="row">
+							<div class="col-md-12">
+								<label for="signPrivateKey">Private key</label>
+
+								<div class="input-group">
+									<input id="signPrivateKey" type="password" class="form-control" value="">
+									<span class="input-group-btn">
+										<button class="showKey btn btn-default" type="button">Show</button>
+									</span>
+								</div>
+							</div>
+						</div>
+						<br>
+
+						<div class="row">
+							<div class="col-md-12">
+								<textarea type="text" id="signTransaction" class="form-control" style="height:125px"></textarea>
+							</div>
+						</div>
+						<br>
+						<br>
+
+						<div class="alert alert-danger hidden" id="signedDataError">
+							<span class="glyphicon glyphicon-exclamation-sign"></span> There is a problem with one or more of your inputs, please check and try again
+						</div>
+
+						<div class="alert alert-success hidden" id="signedData">
+							<label>Signed transaction</label>
+							<button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode" style="float:right;"><span class="glyphicon glyphicon-qrcode"></span></button>
+							<p>The above transaction has been signed:</p>
+
+                        				<textarea class="form-control script" style="height:160px" readonly></textarea>
+                                    
+							<p class="text-muted">Size: <span class="txSize">0</span> <i>bytes</i></p>
+						</div>
+
+						<input type="button" value="Submit" class="btn btn-primary" id="signBtn">
+						<br>
+					</div>
+
+					<div class="tab-pane tab-content" id="broadcast">
+						<h2>Broadcast Transaction <small>into the bitcoin network</small></h2>
+						<a href="#settings" style="float:right;"><span class="glyphicon glyphicon-cog"></span></a>
+						<p>Enter your hex encoded bitcoin transaction</p>
+						<textarea class="form-control" style="height:125px" id="rawTransaction"></textarea>
+						<br>
+						<div id="rawTransactionStatus" class="alert hidden">
+						</div>
+						<input type="button" value="Submit" id="rawSubmitBtn" class="btn btn-primary">
+						<br>
+					</div>
+
+					<div class="tab-pane tab-content" id="dev">
+						<h2>Development <small>Javascript framework, API and more</small></h2>
+						<div class="alert alert-info">This section is currently under development and is subject to change.</div>
+						
+					</div>
+
+					<div class="tab-pane tab-content" id="about">
+						<h3>How does 2 of 3 Bitcoin Escrow Transaction work?</h3>
+						<p><h3><small><b>In Simple Infographic Representation</b></small></h3><br>
+						<img src="images/Escrow1.jpg" style="height:420px;margin-top:-5px"><img src="images/Escrow2.jpg" style="height:420px;margin-top:-5px">
+						</p>
+						<p>Our 2 of 3 Bitcoin Escrow service uses Bitcoin's <a href="https://en.bitcoin.it/wiki/Multisignature" target="_blank">multisignature function</a>. There are 3 participants in this escrow service. A buyer, a seller and a mediator.</p>
+						<p>1. Any one of the three participants can generate <a href="#newMultiSig">an escrow address (and a redeem script)</a> by adding the public key of all three participants. The mediator's public key can be selected from the list of mediators option. Alternatively, you can leave this whole process to the mediator for a smooth transaction. <br><br>If you don't have a public key, you can generate your own key combination (an address, a public key and a private key) using the<a href="#newAddress"> New Address</a> tab. 
+						<br><hr>
+						<u><b><i>NOTE: Never share your Private Key to anyone else. If you do, they can sign the transaction on your behalf and redeem all the coins to their address</i></b></u>.</p><hr>
+						<p>2. To confirm the correctness, the redeem script can be <a href="#verify">verified here</a>.</P>
+						<p>3. Once the redeem script is verified, the seller can send the Bitcoins to the newly generated escrow address. </p>
+						<p>4. Once the coins are received into the escrow address, it means the coins are locked into the escrow (meaning, it cannot be released without any of the 2 participants signing the transaction). To confirm if the coins are received in the escrow address, simply check the balance in any <a href="https://www.blockchain.com/en/explorer" target="_blank">Blockchain Explorer</a>. </p>
+						<p>5. Now that the coins are locked, the buyer can transfer the money and share the details of the same to the mediator and the seller. The seller confirms the completion of the money transfer.</p>
+						<p>6. The mediator then initiates the unsigned raw transaction using <a href="#newTransaction"> the Transaction tab here</a> by loading the redeem script, adding the total amount (minue the network fee) and entering the Bitcoin address where the buyer wishes to receive the coins. The mediator then shares the unsigned raw transaction to the buyer.</p>
+						<p>7. The buyer signs the raw transaction using the <a href="#sign"> sign tab</a> with his/her private key. This generates a new 1st signed raw transaction. The buyer then shares the 1st signed raw transaction with the seller/mediator for their signature. Now either the seller or the mediator can sign the 1st signed raw transaction by repeating step 7. This will generate the 2nd signed raw transaction. </p>
+						<p>8. The 2nd signed raw transaction can then be broadcast to the main network using <a href="#broadcast">Broadcast tab</a> which will generate a new Transaction ID (TX ID). You can use <a href="https://www.blockchain.com/en/explorer" target="_blank">Blockchain Explorer</a> to check the status of the Transaction. This confirms the completion of the escrow transaction</p>
+						<h2>About </h2>
+						<p>bitcoinescrow.ga</p>
+						<p>Compatible with bitcoin core,electrum and other Bitcoin clients</p>
+						<p>service team email address: bitcoinescrow@protonmail.com</p>
+						<h3>Open Source</h3>
+						<p>This complete client side (javascript) escrow service is an open source project released under the MIT license.</a>.
+						<h3>Privacy</h3>
+						<p>We beleive strongly in privacy. Hence the site does not collect and store IP or transaction data via our servers nor do we store your bitcoins private key. We do route traffic using an SSL certificate.</p>
+						
+					</div>
+
+					<div class="tab-pane tab-content" id="settings">
+						<h2>Settings <small> making this escrow service even better!</small></h2>
+						<p>These simple settings below make this escrow service one of the most decentralized wallets in the world.</p>
+
+						<div class="row">
+							<div class="col-md-12">
+								<b>Network</b>: <br>
+								<p class="text-muted">Select which network you'd like to use for key pair generation.</p>
+								<select class="form-control" id="coinjs_coin">
+									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Bitcoin (mainnet)</option>
+									<option value="bitcoin-cash_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;blockdozer.com_bitcoincash;blocktrail.com_bitcoincash">Bitcoin Cash (mainnet)</option>
+									<option value="litecoin_mainnet" rel="0x30;0xb0;0x05;0x019da462;0x019d9cfe;blockr.io_litecoin;chain.so_litecoin">Litecoin (mainnet)</option>
+									<option value="dogecoin_mainnet" rel="0x1e;0x9e;0x16;0x0827421e;0x089944e4;chain.so_dogecoin;chain.so_dogecoin">Dogecoin (mainnet)</option>
+									<option value="carboncoin_mainnet" rel="0x2f;0xaf;0x05;0x488b21e;0x488ade4;cryptoid.info_carboncoin;cryptoid.info_carboncoin">Carboncoin (mainnet)</option>
+									<option value="shadowcash_mainnet" rel="0x3f;0xbf;0x7d;0xee80286a;0xee8031e8;false;false">ShadowCash (mainnet)</option>
+									<option value="bitcoin_testnet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;false;false">Bitcoin (testnet)</option>
+
+									<option value="custom" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;false;false">Custom</option>
+								</select>
+							</div>
+						</div>
+
+						<div id="settingsCustom" class="hidden">
+
+							<hr>
+
+							<div class="row">
+								<div class="col-md-4">
+									<b>Pub</b>: <br>
+									<input type="text" class="form-control coinjssetting" id="coinjs_pub">
+								</div>
+
+								<div class="col-md-4">
+									<b>Priv</b>: <br>
+									<input type="text" class="form-control coinjssetting" id="coinjs_priv">
+								</div>
+
+								<div class="col-md-4">
+									<b>Script Hash (multisig)</b>: <br>
+									<input type="text" class="form-control coinjssetting" id="coinjs_multisig">
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-md-6">
+									<b>HD Pub</b>: <br>
+									<input type="text" class="form-control coinjssetting" id="coinjs_hdpub">
+								</div>
+
+								<div class="col-md-6">
+									<b>HD Priv</b>: <br>
+									<input type="text" class="form-control coinjssetting" id="coinjs_hdprv">
+								</div>
+							</div>
+
+							<br>
+
+							<div class="alert alert-info"> <span class="glyphicon glyphicon-info-sign"></span> You will not be able to automatically broadcast or retreive your unspent outputs from coinb.in when using this setting and will need to use your desktop client instead, however everything else such as creating key pairs, addresses, transaction generation and signing will continue to function normally.</div>
+						</div>
+
+						<hr>
+
+						<div class="row">
+							<div class="col-md-12">
+								<b>Broadcast</b>: <br>
+								<p class="text-muted">Select the network you wish to broadcast the transaction via</p>
+								<select class="form-control" id="coinjs_broadcast">
+									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+								<!--	<option value="blockr.io_bitcoinmainnet"> Blockr.io (Bitcoin mainnet)</option> -->
+									<option value="chain.so_bitcoinmainnet"> Chain.so (Bitcoin mainnet)</option>
+									<option value="blockcypher_bitcoinmainnet"> Blockcypher.com (Bitcoin mainnet)</option>
+									<option value="blockdozer.com_bitcoincash">Blockdozer.com (Bitcoin Cash mainnet)</option>
+									<option value="blockr.io_litecoin"> Blockr.io (Litecoin)</option>
+									<option value="chain.so_dogecoin"> Chain.so (Dogecoin)</option>
+									<option value="cryptoid.info_carboncoin"> Cryptoid.info (Carboncoin)</option>
+								<!--	<option value="blockr.io_bitcointestnet"> Blockr.io (Bitcoin testnet)</option> -->
+								</select>
+							</div>
+						</div>
+							
+						<hr>
+
+						<div class="row">
+							<div class="col-md-12">
+								<b>Unspent outputs</b>: <br>
+								<p class="text-muted">Select the network you wish to retreive your unspent inputs from</p>
+								<select class="form-control" id="coinjs_utxo">
+									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+								<!--	<option value="blockr.io_bitcoinmainnet"> Blockr.io (Bitcoin mainnet)</option> -->
+									<option value="blocktrail.com_bitcoincash">Blocktrail.com (Bitcoin Cash mainnet)</option>
+									<option value="blockdozer.com_bitcoincash">Blockdozer.com (Bitcoin Cash mainnet)</option>
+									<option value="chain.so_litecoin"> Chain.so (Litecoin)</option>
+									<option value="chain.so_dogecoin"> Chain.so (Dogecoin)</option>
+									<option value="cryptoid.info_carboncoin"> Cryptoid.info (Carboncoin)</option>
+								</select>
+							</div>
+						</div>
+
+						<br>
+
+						<div id="statusSettings" class="hidden alert">
+						</div>
+
+						<input type="submit" class="btn btn-primary" id="settingsBtn">
+
+					</div>
+
+					<br>
+					
+					<br>
+
+				</div>
+			</div>
+		</div>
+
+		<div id="footer" style="background-color: #fffed1">
+			<div class="container text-center">
+	        		<p class="text-muted"><b>This page uses javascript to generate your bitcoin address and sign your transactions within your browser, this means no one <strong>cannot </strong> know your private keys, this can be independently verified by reviewing the source codes on <a href="https://gitlab.com/bayareacoder/newbitcoinescrow" target="_blank">gitlab</a>. You can even <a href="https://gitlab.com/bayareacoder/newbitcoinescrow/-/archive/master/newbitcoinescrow-master.zip">download</a> this page and host it yourself or run it offline! &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Version 1.0</div></b></p>
+			</div>
+		</div>
+
+
+	<!-- wallet confirm send modal -->
+	<div class="modal fade" id="modalWalletConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Please confirm</h4>
+				</div>
+
+				<div class="modal-body">
+					<p>You are about to send a transaction to the value of <span id="spendAmount">0.00</span> BTC</p>
+
+					<br>
+					<div id="walletSendConfirmStatus" class="alert alert-danger hidden"></div>
+
+					<div id="walletSendFailTransaction" class="alert alert-info hidden">
+						<b>Raw Transaction:</b>
+						<p>Below is a copy of the transaction we tried to submit</p>
+						<textarea class="form-control" readonly></textarea>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="walletConfirmSend">Send</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="confirmClose">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- wallet confirm send modal -->
+
+	<!-- qrcode modal -->
+	<div class="modal fade" id="modalQrcode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">qrcode</h4>
+				</div>
+
+				<div class="modal-body" align="center">
+					<div id="qrcode"></div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="qrCodeClose">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- qrcode modal -->
+
+	<!-- qrcode scanner modal -->
+	<div class="modal fade" id="modalQrcodeScanner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">qrcode scanner</h4>
+				</div>
+
+				<div class="modal-body" align="center">
+					<select id="videoSource" class="form-control"></select>
+					<div id="videoReaderError" class="hidden">Your browser does not offer camera support</div>
+					<video id="videoReader" muted autoplay style="width:100%;height:100%"></video>
+					<div id="qrcode-scanner-callback-to" class="hidden"></div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="qrScanClose">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- qrcode scanner modal -->
+
+	<!-- mediator modal -->
+	<div class="modal fade" id="modalMediator" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Transaction Mediation</h4>
+				</div>
+
+				<div class="modal-body">
+					<p>You can add a Mediator's public key when creating a <i>2-of-3 multi signature address</i> for the transaction security. Your mediator will help with the recovery of the escrow funds, if the seller and buyer have a dispution.</p>
+
+					<p>If you want to submit the evidences for the transaction process, please contact the below email address for further information.</p>
+					<div class="row">
+						<div class="col-md-5">
+							<label>Mediator:</label>
+
+							<!-- 
+								You need to contact us before adding your pubkey 
+								and submitting a pull request on github. 
+
+								format is: pubkey;email;fee
+							-->
+
+							<select id="mediatorList" class="form-control">
+								<option value="02b216511175270f4136805671fdb755095d12b8613073a8677d2fcc104ad87f5b;bitcoinescrow@protonmail.com;2">bitcoin escrow team</option>
+								<option value="02e58f1df0577c8004afec2cf7b7aa8cf05dec069aad9b7226ccde4871361ffd5d;newbiewallet@protonmail.com;1">newbiewallet team</option>
+							</select>
+						</div>
+
+						<div class="col-md-5">
+							<label>Email Address:</label> <span class="text-muted">(for disputes)</span>
+							<input id="mediatorEmail" type="text" class="form-control address" value="" readonly>	
+						</div>
+
+						<div class="col-md-2">
+							<label>Fee (‰):</label> 
+							<input id="mediatorFee" type="text" class="form-control address" value="" readonly>	
+						</div>
+
+					</div>
+					<br>
+
+					<label>Mediator's Public Key:</label>
+					<input id="mediatorPubkey" type="text" class="form-control address" value="" readonly>
+					<br>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-primary" type="button" id="mediatorAddKey">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="mediatorClose">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- mediator modal -->
+
+
+	<!-- warning (fee) modal -->
+	<div class="modal fade" id="modalWarningFee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><b>Warning High Fee!</b></h4>
+				</div>
+
+				<div class="modal-body">
+					Please be aware that you have created a transaction with what seems to be a very high fee of <span id="modalWarningFeeAmount"></span> BTC!
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="warningFeeClose">OK, I've got it!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- warning (fee) modal -->
+
+	<div class="hidden" id="entropybucket"></div>
+	</body>
+</html>
